@@ -1,1 +1,2 @@
-apikey = "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"
+# todo: add you api key
+apikey = ""

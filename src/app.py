@@ -12,7 +12,6 @@ import logging
 # Configure logging
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-os.environ['OPENAI_API_KEY'] = "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"
 def main():
     os.environ['OPENAI_API_KEY'] = apikey
 

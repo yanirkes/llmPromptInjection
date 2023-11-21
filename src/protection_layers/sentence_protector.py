@@ -1,7 +1,7 @@
 from protection_layers import naive_protector
 
 class NaiveSentanceProtector(naive_protector.NaiveProtector):
-    """Get an input compund by multiple sentences and decomposed it to smaller sentences. Than
+    """Get an input compound by multiple sentences and decomposed it to smaller sentences. Than
        it will use a naive approach.
     """
     def __init__(self, sensitivity_threshold = 0.83):
@@ -15,6 +15,8 @@ class NaiveSentanceProtector(naive_protector.NaiveProtector):
 
     def attack_score(self, sentance):
         embed_sentance = self.embed_sentance(sentance)
+        import time
+        time.sleep(10)
         return any(
                     list(
                         map(

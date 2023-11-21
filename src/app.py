@@ -15,20 +15,48 @@ logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s 
 def main():
     os.environ['OPENAI_API_KEY'] = apikey
 
+
     # Set text and description
-    st.title('Movies title generator')
-    input = st.text_input('Please add only a topic, related to movie titles, you wish the system to generate for you.'
-                           'Chose model.'
-                           '1. naive'
-                           '2. naive-multisentance'
-                           '3. llm-based'
-                           'write the the model name first, then the movie title, with \';\' as delimiter  (e.g naive; coffee house) '
+    st.title('letter writer or Movies title generator')
+
+    letter_topic_input  = st.text_input("""Please describe whichever letter you wish the model to generate for you """)
+
+    try:
+        # Set subject such that the model would generate text out of the topic  
+        title_template = PromptTemplate(
+            input_variables=['description'],
+            template='Generate a letter with the following description {description}'
+        )
+
+        # LLM
+        llm = OpenAI(temperature=0.9)
+        title_chain = LLMChain(llm=llm, prompt=title_template, verbose=True)
+
+        # Check prompt is valid. Than verify if model detected attack or prompt input is valid
+        if letter_topic_input:
+            # map between the different models
+            to_prompt = protectors_mapper.ProtectorRouter.map_prompt("letter_layer", letter_topic_input)
+            letter = title_chain.run(description=to_prompt)
+            st.write(letter)
+            logging.info(f"Model response: {letter}")
+
+    except Exception as e:
+        st.write('The System has reached to its full capacity, please wait and try again (roughly 20 seconds)')
+        logging.exception('System reached to full capacity (3 pro`mpts every 20 sec)')
+    
+    input = st.text_input("""Please add only a topic, related to movie titles, you wish the system to generate for you.
+    Chose model.\n
+    1. naive\n
+    2. naive-multisentance\n
+    3. llm-based\n
+    4. llm-based-adv\n
+    write the the model name first, then the movie title, with \';\' as delimiter (e.g naive; coffee house)"""
                            )
     model_name, prompt = input.split(';') if len(input.split(';')) > 1 else  ('continue','')
 
-    if model_name in ('naive','naive-multisentance','llm-based'):
+    if model_name in ('naive','naive-multisentance','llm-based','llm-based-adv'):
         try:
-            # Set subject such that the model would always be focus on generating from
+            # Set subject such that the model would generate text out of the topic  
             title_template = PromptTemplate(
                 input_variables = ['topic'],
                 template='write me a movie title about {topic}'
@@ -51,7 +79,7 @@ def main():
                     logging.info(f"Found model attack")
 
         except Exception as e:
-            st.write('System reached to full capacity (3 prompts every 20 sec)')
+            st.write('The System has reached to its full capacity, please wait and try again (roughly 20 seconds)')
             logging.exception('System reached to full capacity (3 pro`mpts every 20 sec)')
     else:
         st.write('Choose a proper model name')

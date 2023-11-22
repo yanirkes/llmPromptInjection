@@ -26,7 +26,7 @@ Example text:
 # Second scenario -  prompt injection deliberately adjust the model purpose.
 
 This program serves as a tool for generating movie titles using LLN models while incorporating protection layers 
-to identify prompt injection attacks. The system comprises three models:
+to identify prompt injection attacks. The system comprises four models:
 1. The first model, a Naive approach, assesses similarity using a predefined corpus. It measures similarity via
    cosine similarity between the input and the established corpus.
    

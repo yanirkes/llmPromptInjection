@@ -106,4 +106,4 @@ There are 2 options:
       * docker build -t prompt_sec .
       * docker run -p 80:8501 prompt_sec
 
-Please go to src/apikey.py and insert the apikey of the that can be found on your OpenAI account.
+Please go to src/apikey.py and insert the apikey (it can be found on your OpenAI account).

@@ -43,6 +43,7 @@ class NaiveProtector():
         return list(map(lambda x: self.cosine_similarity(x, prompt.data[0].embedding) > self.sensitivity_threshold, self.malicious_embed_corpus))
 
     def detect(self, prompt):
+        """Detecting an attack using an embedding layer of the prompt input"""
         embed_response = self.client.embeddings.create(
             input=prompt,
             model="text-embedding-ada-002"

@@ -7,7 +7,7 @@ class ProtectorRouter(object):
     A mapper that get from the user an input and route it to the corresponding protecting layer.
     """
     @classmethod
-    def map_prompt(cls, model_name, prompt):
+    def map_prompt(cls, model_name, prompt, glove_vectors=None):
         start_time = time.time()
 
         if model_name == 'naive':
@@ -35,7 +35,10 @@ class ProtectorRouter(object):
             logging.info(f"LLM advanced model elapsed time: {end_time - start_time:.4f} seconds")
 
         elif model_name == 'letter_layer':
-            to_prompt = personal_data_protection.PersonalLetterProtector().transform_letter(prompt)
+            obj = personal_data_protection.PersonalDataProtector(prompt, glove_vectors)
+            obj.process_text()
+            to_prompt = obj.to_prompt
 
-        time.sleep(10)
+
+        time.sleep(5)
         return to_prompt

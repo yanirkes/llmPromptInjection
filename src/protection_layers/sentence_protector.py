@@ -14,6 +14,9 @@ class NaiveSentanceProtector(naive_protector.NaiveProtector):
         )
 
     def attack_score(self, sentance):
+        """For every sentence in the malicous embedded corpus, the function measure the cosine distance
+        the input sentance, which then it verifies if the result is higher than a threshold. Once itreations are
+        over, the function find any true value in the results vector. If so, an attack was found"""
         embed_sentance = self.embed_sentance(sentance)
         import time
         time.sleep(10)

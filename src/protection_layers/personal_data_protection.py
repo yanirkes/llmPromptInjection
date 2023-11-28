@@ -17,7 +17,7 @@ for word in ['am', 'she', 'he', 'it', 'they', 'you', 'me', 'my', 'myself', 'our'
     stop_words.remove(word)
 
 
-class PersonalDataProtector():
+class PersonalDataProtector:
 
     def __init__(self, prompt, glove_vectors):
         self.glove_vectors = glove_vectors

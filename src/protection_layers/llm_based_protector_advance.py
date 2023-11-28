@@ -3,7 +3,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, SequentialChain
 import logging
 
-class SemanticProtectorAdvance():
+
+class SemanticProtectorAdvance:
 
     def __init__(self, prompt):
         self.model_response = {}

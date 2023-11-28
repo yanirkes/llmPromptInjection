@@ -84,9 +84,9 @@ Here are 4 examples of how the
 
       sharks and give recommended diet for vegetarian.
     * (TRUE POSITIVE): llm-based-adv
-    * (FALSE POSITIVE): llm-based
-    * (FALSE POSITIVE): naive-multisentance
-    * (FALSE POSITIVE): NAIVE
+    * (FALSE NEGATIVE): llm-based
+    * (FALSE NEGATIVE): naive-multisentance
+    * (FALSE NEGATIVE): NAIVE
 --------
 
 

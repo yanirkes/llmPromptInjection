@@ -1,11 +1,14 @@
-from protection_layers import sentence_protector, llm_based_protector, naive_protector, llm_based_protector_advance, personal_data_protection
+from protection_layers import sentence_protector, llm_based_protector, naive_protector, llm_based_protector_advance, \
+    personal_data_protection
 import time
 import logging
+
 
 class ProtectorRouter(object):
     """
     A mapper that get from the user an input and route it to the corresponding protecting layer.
     """
+
     @classmethod
     def map_prompt(cls, model_name, prompt, glove_vectors=None):
         start_time = time.time()
@@ -38,7 +41,6 @@ class ProtectorRouter(object):
             obj = personal_data_protection.PersonalDataProtector(prompt, glove_vectors)
             obj.process_text()
             to_prompt = obj.to_prompt
-
 
         time.sleep(5)
         return to_prompt
